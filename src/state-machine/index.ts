@@ -2,13 +2,12 @@ import {
     globalSettings,
     StateTransition,
     BotStateMachine,
-    EntityFilters,
     BehaviorIdle,
     NestedStateMachine, 
     StateMachineWebserver,
 } from 'mineflayer-statemachine';
 import { Bot } from 'mineflayer';
-import { IndexedData, Item } from 'minecraft-data';
+import { IndexedData } from 'minecraft-data';
 import { Targets } from './data/data';
 import { collectWoodMachine } from './state-machines/collect-wood-machine';
 import { craftPickaxeMachine } from './state-machines/craft-pickaxe-machine';
@@ -22,7 +21,6 @@ export class StateMachineWrapper {
     private collectWood: NestedStateMachine;
     private craftPickaxe: NestedStateMachine;
 
-    private entityFilters: any;
     private transitions: StateTransition[];
     private targets: Targets;
     private stateMachine: BotStateMachine;
@@ -35,7 +33,6 @@ export class StateMachineWrapper {
             unreachableTargets: [],
         };
         this.idleState = new BehaviorIdle();
-        this.entityFilters = EntityFilters();
         this.collectWood = collectWoodMachine(bot, this.targets, this.mcData);
         this.craftPickaxe = craftPickaxeMachine(bot, this.targets, this.mcData);
 
