@@ -4,17 +4,12 @@ import {
     BotStateMachine,
     EntityFilters,
     BehaviorIdle,
-    BehaviorLookAtEntity,
-    BehaviorGetClosestEntity,
     NestedStateMachine, 
-    BehaviorMineBlock,
     StateMachineWebserver,
 } from 'mineflayer-statemachine';
 import { Bot } from 'mineflayer';
-import { BehaviorFurcinoMoveTo } from './states/furcino-move-to-state';
 import { IndexedData, Item } from 'minecraft-data';
 import { Targets } from './data/data';
-import { BehaviorFurcinoFindBlock } from './states/furcino-find-block-state';
 import { collectWoodMachine } from './state-machines/collect-wood-machine';
 import { craftPickaxeMachine } from './state-machines/craft-pickaxe-machine';
 
@@ -23,11 +18,6 @@ export class StateMachineWrapper {
     private mcData: IndexedData;
     
     private idleState: BehaviorIdle;
-    /* private lookAtPlayerState: BehaviorLookAtEntity;
-    private getClosestPlayerState: BehaviorGetClosestEntity;
-    private findBlock: BehaviorFurcinoFindBlock;
-    private mineBlock: BehaviorMineBlock;
-    private moveToState: BehaviorFurcinoMoveTo; */
 
     private collectWood: NestedStateMachine;
     private craftPickaxe: NestedStateMachine;
@@ -46,11 +36,6 @@ export class StateMachineWrapper {
         };
         this.idleState = new BehaviorIdle();
         this.entityFilters = EntityFilters();
-        /* this.getClosestPlayerState = new BehaviorGetClosestEntity(bot, this.targets, this.entityFilters.PlayersOnly);
-        this.findBlock = new BehaviorFurcinoFindBlock(bot, this.targets);
-        this.mineBlock = new BehaviorMineBlock(bot, this.targets);
-        this.lookAtPlayerState = new BehaviorLookAtEntity(bot, this.targets);
-        this.moveToState = new BehaviorFurcinoMoveTo(bot, this.targets); */
         this.collectWood = collectWoodMachine(bot, this.targets, this.mcData);
         this.craftPickaxe = craftPickaxeMachine(bot, this.targets, this.mcData);
 
